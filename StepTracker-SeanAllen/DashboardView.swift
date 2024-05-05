@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  DashboardView.swift
 //  StepTracker-SeanAllen
 //
 //  Created by Kevin Mattocks on 5/3/24.
@@ -26,8 +26,9 @@ enum HealthMetricContext: CaseIterable, Identifiable {
     }
 }
 
-struct ContentView: View {
+struct DashboardView: View {
     
+    // MARK: - Properties
     @State private var selectedStat: HealthMetricContext = .steps
     
     ///Computed property to make things a bit neater for the tint modifier based on steps or weight
@@ -36,6 +37,7 @@ struct ContentView: View {
         selectedStat == .steps
     }
     
+    // MARK: - Body
     var body: some View {
         NavigationStack{
             ScrollView {
@@ -104,7 +106,7 @@ struct ContentView: View {
             .padding()
             .navigationTitle("Dashboard")
             .navigationDestination(for: HealthMetricContext.self) { metric in
-                Text(metric.title)
+                HealthDataListView(metric: metric)
             }
         }
         .tint(isSteps ? .mint : .indigo)
@@ -112,5 +114,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    DashboardView()
 }

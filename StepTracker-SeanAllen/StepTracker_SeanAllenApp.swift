@@ -11,7 +11,7 @@ import SwiftUI
 struct StepTracker_SeanAllenApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            DashboardView()
         }
     }
 }
