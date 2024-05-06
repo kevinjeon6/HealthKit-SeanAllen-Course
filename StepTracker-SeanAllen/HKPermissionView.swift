@@ -6,8 +6,13 @@
 //
 
 import SwiftUI
+import HealthKitUI
 
 struct HKPermissionView: View {
+    
+    @Environment(HealthKitManager.self) private var hkManager
+    @Environment(\.dismiss) private var dismiss
+    @State private var trigger = false
     
     var description = """
     This app displays your step and weight data in interactive charts.
@@ -32,15 +37,34 @@ struct HKPermissionView: View {
             }
             
             Button("Connect Apple Health") {
-                //Code later
+                //Check if Health Data is available on the device
+                
+                if HKHealthStore.isHealthDataAvailable() {
+                    trigger = true
+                }
             }
             .buttonStyle(.borderedProminent)
             .tint(.pink)
         }
         .padding(30)
+        .healthDataAccessRequest(
+            store: hkManager.healthStore,
+            shareTypes: hkManager.allTypes,
+            readTypes: hkManager.allTypes,
+            trigger: trigger) { result in
+                switch result {
+                    
+                case .success(_):
+                    dismiss()
+                case .failure(_):
+                    //handle error later
+                    dismiss()
+                }
+            }
     }
 }
 
 #Preview {
     HKPermissionView()
+        .environment(HealthKitManager())
 }
