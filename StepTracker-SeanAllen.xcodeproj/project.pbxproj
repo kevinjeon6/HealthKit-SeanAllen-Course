@@ -12,6 +12,7 @@
 		744919B02BE53D6B00D6FF62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 744919AF2BE53D6B00D6FF62 /* Assets.xcassets */; };
 		744919B32BE53D6B00D6FF62 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 744919B22BE53D6B00D6FF62 /* Preview Assets.xcassets */; };
 		744919BA2BE82C6400D6FF62 /* HealthDataListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744919B92BE82C6400D6FF62 /* HealthDataListView.swift */; };
+		74C0A7742BE937370037FB36 /* HKPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0A7732BE937360037FB36 /* HKPermissionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		744919AF2BE53D6B00D6FF62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		744919B22BE53D6B00D6FF62 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		744919B92BE82C6400D6FF62 /* HealthDataListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthDataListView.swift; sourceTree = "<group>"; };
+		74C0A7732BE937360037FB36 /* HKPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKPermissionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 			children = (
 				744919AB2BE53D6A00D6FF62 /* StepTracker_SeanAllenApp.swift */,
 				744919AD2BE53D6A00D6FF62 /* DashboardView.swift */,
+				74C0A7732BE937360037FB36 /* HKPermissionView.swift */,
 				744919B92BE82C6400D6FF62 /* HealthDataListView.swift */,
 				744919AF2BE53D6B00D6FF62 /* Assets.xcassets */,
 				744919B12BE53D6B00D6FF62 /* Preview Content */,
@@ -140,6 +143,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74C0A7742BE937370037FB36 /* HKPermissionView.swift in Sources */,
 				744919BA2BE82C6400D6FF62 /* HealthDataListView.swift in Sources */,
 				744919AE2BE53D6A00D6FF62 /* DashboardView.swift in Sources */,
 				744919AC2BE53D6A00D6FF62 /* StepTracker_SeanAllenApp.swift in Sources */,
