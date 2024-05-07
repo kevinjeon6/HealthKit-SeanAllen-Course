@@ -19,6 +19,65 @@ import Observation
     ]
     
     
+    //Functions that try need to handle the error or be marked with "throws"
+    // async throws means that it might throw an error and it might suspend its execution
+    func fetchStepCount () async {
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: .now)
+        let endDate = calendar.date(byAdding: .day, value: 1, to: today)!
+        let startDate = calendar.date(byAdding: .day, value: -28, to: endDate)!
+        
+        let queryPredicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate)
+        
+        //Create the query descriptor
+        let samplePredicate = HKSamplePredicate.quantitySample(type: HKQuantityType(.stepCount), predicate: queryPredicate)
+        
+        let sumOfStepQuery = HKStatisticsCollectionQueryDescriptor(
+            predicate: samplePredicate,
+            options: .cumulativeSum,
+            anchorDate: endDate,
+            intervalComponents: .init(day: 1))
+        
+        let stepCount = try! await sumOfStepQuery.result(for: healthStore)
+        
+        
+        //Looping of the results of stepCount to make sure we have it by printing it out
+//        for steps in stepCount.statistics() {
+//            print(steps.sumQuantity() ?? 0)
+//        }
+        
+    }
+    
+    func fetchWeight () async {
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: .now)
+        let endDate = calendar.date(byAdding: .day, value: 1, to: today)!
+        let startDate = calendar.date(byAdding: .day, value: -28, to: endDate)!
+        
+        let queryPredicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate)
+        
+        //Create the query descriptor
+        let samplePredicate = HKSamplePredicate.quantitySample(type: HKQuantityType(.bodyMass), predicate: queryPredicate)
+        
+        let weightQuery = HKStatisticsCollectionQueryDescriptor(
+            predicate: samplePredicate,
+            options: .mostRecent,
+            anchorDate: endDate,
+            intervalComponents: .init(day: 1))
+        
+        let weights = try! await weightQuery.result(for: healthStore)
+        
+        
+        //Looping of the results of stepCount to make sure we have it by printing it out
+//        for weight in weights.statistics() {
+//            print(weight.mostRecentQuantity()?.doubleValue(for: .pound()) ?? 0)
+//        }
+        
+    }
+    
+
+    
+    
 //    func addSimulatorData() async {
 //        
 //        var mockSamples: [HKQuantitySample] = []
