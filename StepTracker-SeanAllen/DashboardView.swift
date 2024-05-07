@@ -29,6 +29,9 @@ enum HealthMetricContext: CaseIterable, Identifiable {
 struct DashboardView: View {
     
     // MARK: - Properties
+    @Environment(HealthKitManager.self) private var hkManager
+    @AppStorage("hasSeenPermissionView") private var hasSeenPermissionView = false
+    @State private var isShowingHealthKitPermissionSheet = false
     @State private var selectedStat: HealthMetricContext = .steps
     
     ///Computed property to make things a bit neater for the tint modifier based on steps or weight
@@ -104,9 +107,18 @@ struct DashboardView: View {
              
             }
             .padding()
+            .task {
+                isShowingHealthKitPermissionSheet = !hasSeenPermissionView
+                
+            }
             .navigationTitle("Dashboard")
             .navigationDestination(for: HealthMetricContext.self) { metric in
                 HealthDataListView(metric: metric)
+            }
+            .sheet(isPresented: $isShowingHealthKitPermissionSheet) {
+                // fetch health data
+            } content: {
+                HKPermissionView(hasSeen: $hasSeenPermissionView)
             }
         }
         .tint(isSteps ? .mint : .indigo)
@@ -115,4 +127,5 @@ struct DashboardView: View {
 
 #Preview {
     DashboardView()
+        .environment(HealthKitManager())
 }
