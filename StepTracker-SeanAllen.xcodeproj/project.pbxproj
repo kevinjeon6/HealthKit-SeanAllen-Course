@@ -12,6 +12,7 @@
 		744919B02BE53D6B00D6FF62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 744919AF2BE53D6B00D6FF62 /* Assets.xcassets */; };
 		744919B32BE53D6B00D6FF62 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 744919B22BE53D6B00D6FF62 /* Preview Assets.xcassets */; };
 		744919BA2BE82C6400D6FF62 /* HealthDataListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744919B92BE82C6400D6FF62 /* HealthDataListView.swift */; };
+		7492BC852BEBBD050095BE20 /* HealthMetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7492BC842BEBBD050095BE20 /* HealthMetric.swift */; };
 		74C0A7742BE937370037FB36 /* HKPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0A7732BE937360037FB36 /* HKPermissionView.swift */; };
 		74C0A7772BE9468D0037FB36 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0A7762BE9468D0037FB36 /* HealthKitManager.swift */; };
 /* End PBXBuildFile section */
@@ -23,6 +24,7 @@
 		744919AF2BE53D6B00D6FF62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		744919B22BE53D6B00D6FF62 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		744919B92BE82C6400D6FF62 /* HealthDataListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthDataListView.swift; sourceTree = "<group>"; };
+		7492BC842BEBBD050095BE20 /* HealthMetric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthMetric.swift; sourceTree = "<group>"; };
 		74C0A7732BE937360037FB36 /* HKPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKPermissionView.swift; sourceTree = "<group>"; };
 		74C0A7752BE945F70037FB36 /* StepTracker-SeanAllen.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "StepTracker-SeanAllen.entitlements"; sourceTree = "<group>"; };
 		74C0A7762BE9468D0037FB36 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 				744919AB2BE53D6A00D6FF62 /* StepTracker_SeanAllenApp.swift */,
 				744919AD2BE53D6A00D6FF62 /* DashboardView.swift */,
 				74C0A7732BE937360037FB36 /* HKPermissionView.swift */,
+				7492BC842BEBBD050095BE20 /* HealthMetric.swift */,
 				74C0A7762BE9468D0037FB36 /* HealthKitManager.swift */,
 				744919B92BE82C6400D6FF62 /* HealthDataListView.swift */,
 				744919AF2BE53D6B00D6FF62 /* Assets.xcassets */,
@@ -153,6 +156,7 @@
 				744919AE2BE53D6A00D6FF62 /* DashboardView.swift in Sources */,
 				74C0A7772BE9468D0037FB36 /* HealthKitManager.swift in Sources */,
 				744919AC2BE53D6A00D6FF62 /* StepTracker_SeanAllenApp.swift in Sources */,
+				7492BC852BEBBD050095BE20 /* HealthMetric.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
