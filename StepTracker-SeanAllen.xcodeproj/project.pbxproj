@@ -13,6 +13,7 @@
 		744919B32BE53D6B00D6FF62 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 744919B22BE53D6B00D6FF62 /* Preview Assets.xcassets */; };
 		744919BA2BE82C6400D6FF62 /* HealthDataListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744919B92BE82C6400D6FF62 /* HealthDataListView.swift */; };
 		7492BC852BEBBD050095BE20 /* HealthMetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7492BC842BEBBD050095BE20 /* HealthMetric.swift */; };
+		7492BC872BED0E060095BE20 /* StepbBarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7492BC862BED0E060095BE20 /* StepbBarChartView.swift */; };
 		74C0A7742BE937370037FB36 /* HKPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0A7732BE937360037FB36 /* HKPermissionView.swift */; };
 		74C0A7772BE9468D0037FB36 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0A7762BE9468D0037FB36 /* HealthKitManager.swift */; };
 /* End PBXBuildFile section */
@@ -25,6 +26,7 @@
 		744919B22BE53D6B00D6FF62 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		744919B92BE82C6400D6FF62 /* HealthDataListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthDataListView.swift; sourceTree = "<group>"; };
 		7492BC842BEBBD050095BE20 /* HealthMetric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthMetric.swift; sourceTree = "<group>"; };
+		7492BC862BED0E060095BE20 /* StepbBarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepbBarChartView.swift; sourceTree = "<group>"; };
 		74C0A7732BE937360037FB36 /* HKPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKPermissionView.swift; sourceTree = "<group>"; };
 		74C0A7752BE945F70037FB36 /* StepTracker-SeanAllen.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "StepTracker-SeanAllen.entitlements"; sourceTree = "<group>"; };
 		74C0A7762BE9468D0037FB36 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
@@ -62,11 +64,10 @@
 			children = (
 				74C0A7752BE945F70037FB36 /* StepTracker-SeanAllen.entitlements */,
 				744919AB2BE53D6A00D6FF62 /* StepTracker_SeanAllenApp.swift */,
-				744919AD2BE53D6A00D6FF62 /* DashboardView.swift */,
-				74C0A7732BE937360037FB36 /* HKPermissionView.swift */,
-				7492BC842BEBBD050095BE20 /* HealthMetric.swift */,
-				74C0A7762BE9468D0037FB36 /* HealthKitManager.swift */,
-				744919B92BE82C6400D6FF62 /* HealthDataListView.swift */,
+				7492BC8A2BED11120095BE20 /* Model */,
+				7492BC8B2BED11200095BE20 /* Managers */,
+				7492BC892BED10CF0095BE20 /* Charts */,
+				7492BC882BED10B80095BE20 /* Screens */,
 				744919AF2BE53D6B00D6FF62 /* Assets.xcassets */,
 				744919B12BE53D6B00D6FF62 /* Preview Content */,
 			);
@@ -79,6 +80,40 @@
 				744919B22BE53D6B00D6FF62 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		7492BC882BED10B80095BE20 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				744919AD2BE53D6A00D6FF62 /* DashboardView.swift */,
+				74C0A7732BE937360037FB36 /* HKPermissionView.swift */,
+				744919B92BE82C6400D6FF62 /* HealthDataListView.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		7492BC892BED10CF0095BE20 /* Charts */ = {
+			isa = PBXGroup;
+			children = (
+				7492BC862BED0E060095BE20 /* StepbBarChartView.swift */,
+			);
+			path = Charts;
+			sourceTree = "<group>";
+		};
+		7492BC8A2BED11120095BE20 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7492BC842BEBBD050095BE20 /* HealthMetric.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		7492BC8B2BED11200095BE20 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				74C0A7762BE9468D0037FB36 /* HealthKitManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,6 +188,7 @@
 			files = (
 				74C0A7742BE937370037FB36 /* HKPermissionView.swift in Sources */,
 				744919BA2BE82C6400D6FF62 /* HealthDataListView.swift in Sources */,
+				7492BC872BED0E060095BE20 /* StepbBarChartView.swift in Sources */,
 				744919AE2BE53D6A00D6FF62 /* DashboardView.swift in Sources */,
 				74C0A7772BE9468D0037FB36 /* HealthKitManager.swift in Sources */,
 				744919AC2BE53D6A00D6FF62 /* StepTracker_SeanAllenApp.swift in Sources */,
