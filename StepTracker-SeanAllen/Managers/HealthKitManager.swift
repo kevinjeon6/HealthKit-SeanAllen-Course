@@ -18,6 +18,9 @@ import Observation
         HKQuantityType(.bodyMass)
     ]
     
+    var stepData: [HealthMetric] = []
+    var weightData: [HealthMetric] = []
+    
     
     //Functions that try need to handle the error or be marked with "throws"
     // async throws means that it might throw an error and it might suspend its execution
@@ -38,8 +41,16 @@ import Observation
             anchorDate: endDate,
             intervalComponents: .init(day: 1))
         
-        let stepCount = try! await sumOfStepQuery.result(for: healthStore)
-        
+        do {
+            let stepCount = try await sumOfStepQuery.result(for: healthStore)
+            
+            stepData = stepCount.statistics().map {
+                HealthMetric(date: $0.startDate, value: $0.sumQuantity()?.doubleValue(for: .count()) ?? 0)
+            }
+
+        } catch {
+            fatalError("Error retrieving step data")
+        }
         
         //Looping of the results of stepCount to make sure we have it by printing it out
 //        for steps in stepCount.statistics() {
@@ -65,7 +76,15 @@ import Observation
             anchorDate: endDate,
             intervalComponents: .init(day: 1))
         
-        let weights = try! await weightQuery.result(for: healthStore)
+        do {
+            let weights = try await weightQuery.result(for: healthStore)
+            
+            weightData = weights.statistics().map {
+                HealthMetric(date: $0.startDate, value: $0.mostRecentQuantity()?.doubleValue(for: .pound()) ?? 0)
+            }
+        } catch {
+            fatalError("Error retrieving weight data")
+        }
         
         
         //Looping of the results of stepCount to make sure we have it by printing it out

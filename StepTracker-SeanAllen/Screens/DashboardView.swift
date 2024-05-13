@@ -5,6 +5,7 @@
 //  Created by Kevin Mattocks on 5/3/24.
 //
 
+import Charts
 import SwiftUI
 
 enum HealthMetricContext: CaseIterable, Identifiable {
@@ -39,6 +40,7 @@ struct DashboardView: View {
     var isSteps: Bool {
         selectedStat == .steps
     }
+
     
     // MARK: - Body
     var body: some View {
@@ -53,61 +55,15 @@ struct DashboardView: View {
                     }
                     .pickerStyle(.segmented)
                     
-                    VStack {
-                        NavigationLink(value: selectedStat) {
-                            HStack {
-                                VStack (alignment: .leading) {
-                                    Label("Steps", systemImage: "figure.walk")
-                                        .font(.title3.bold())
-                                        .foregroundColor(.mint)
-                                    
-                                    Text("Avg: 10K Steps")
-                                        .font(.caption)
-                                }
-                                
-                                Spacer()
-                                
-                                Image(systemName: "chevron.right")
-                                
-                            }
-                        }
-                        .foregroundStyle(.secondary)
-                        .padding(.bottom, 12)
-                        
-                        RoundedRectangle(cornerRadius: 13)
-                            .foregroundStyle(.secondary)
-                            .frame(height: 150)
-                    }
-                    .padding()
-                    .background(RoundedRectangle(cornerRadius: 12).fill(Color(.secondarySystemBackground)))
+                    StepbBarChartView(selectedStat: selectedStat, chartData: hkManager.stepData)
                     
-                    VStack(alignment: .leading) {
-   
-                            VStack(alignment: .leading) {
-                                Label("Averages", systemImage: "calendar")
-                                    .font(.title3.bold())
-                                    .foregroundColor(.mint)
-                                
-                                Text("Last 28 Days")
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
-             
-                            }
-                            .padding(.bottom, 12)
-                            
-                         
-                        
-                        RoundedRectangle(cornerRadius: 13)
-                            .foregroundStyle(.secondary)
-                            .frame(height: 240)
-                    }
-                    .padding()
-                    .background(RoundedRectangle(cornerRadius: 12).fill(Color(.secondarySystemBackground)))
+                    StepPieChartView(chartData: ChartMath.avgWeeklyCount(for: hkManager.stepData))
                 }
              
             }
             .padding()
             .task {
+                await hkManager.fetchStepCount()
                 isShowingHealthKitPermissionSheet = !hasSeenPermissionView
                 
             }
@@ -123,6 +79,10 @@ struct DashboardView: View {
         }
         .tint(isSteps ? .mint : .indigo)
     }
+    
+    
+
+    
 }
 
 #Preview {
