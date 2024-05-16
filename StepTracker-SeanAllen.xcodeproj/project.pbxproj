@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		74247BCB2BF6BD19006F8C6E /* WeightLineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74247BCA2BF6BD19006F8C6E /* WeightLineChartView.swift */; };
+		74247BCE2BF6BEA3006F8C6E /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74247BCD2BF6BEA3006F8C6E /* MockData.swift */; };
 		74331FA52BF24F7300C7D628 /* StepPieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74331FA42BF24F7300C7D628 /* StepPieChartView.swift */; };
 		744919AC2BE53D6A00D6FF62 /* StepTracker_SeanAllenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744919AB2BE53D6A00D6FF62 /* StepTracker_SeanAllenApp.swift */; };
 		744919AE2BE53D6A00D6FF62 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744919AD2BE53D6A00D6FF62 /* DashboardView.swift */; };
@@ -24,6 +26,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		74247BCA2BF6BD19006F8C6E /* WeightLineChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightLineChartView.swift; sourceTree = "<group>"; };
+		74247BCD2BF6BEA3006F8C6E /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		74331FA42BF24F7300C7D628 /* StepPieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepPieChartView.swift; sourceTree = "<group>"; };
 		744919A82BE53D6A00D6FF62 /* StepTracker-SeanAllen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "StepTracker-SeanAllen.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		744919AB2BE53D6A00D6FF62 /* StepTracker_SeanAllenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepTracker_SeanAllenApp.swift; sourceTree = "<group>"; };
@@ -53,6 +57,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		74247BCC2BF6BE80006F8C6E /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				74247BCD2BF6BEA3006F8C6E /* MockData.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		7449199F2BE53D6A00D6FF62 = {
 			isa = PBXGroup;
 			children = (
@@ -74,6 +86,7 @@
 			children = (
 				74C0A7752BE945F70037FB36 /* StepTracker-SeanAllen.entitlements */,
 				744919AB2BE53D6A00D6FF62 /* StepTracker_SeanAllenApp.swift */,
+				74247BCC2BF6BE80006F8C6E /* Utilities */,
 				7492BC902BED18B50095BE20 /* Extensions */,
 				7492BC8A2BED11120095BE20 /* Model */,
 				7492BC8B2BED11200095BE20 /* Managers */,
@@ -108,6 +121,7 @@
 			children = (
 				7492BC862BED0E060095BE20 /* StepbBarChartView.swift */,
 				74331FA42BF24F7300C7D628 /* StepPieChartView.swift */,
+				74247BCA2BF6BD19006F8C6E /* WeightLineChartView.swift */,
 				7492BC8C2BED18070095BE20 /* ChartMath.swift */,
 				7492BC8E2BED184B0095BE20 /* ChartDataTypes.swift */,
 			);
@@ -215,7 +229,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				74C0A7742BE937370037FB36 /* HKPermissionView.swift in Sources */,
+				74247BCB2BF6BD19006F8C6E /* WeightLineChartView.swift in Sources */,
 				744919BA2BE82C6400D6FF62 /* HealthDataListView.swift in Sources */,
+				74247BCE2BF6BEA3006F8C6E /* MockData.swift in Sources */,
 				74331FA52BF24F7300C7D628 /* StepPieChartView.swift in Sources */,
 				7492BC872BED0E060095BE20 /* StepbBarChartView.swift in Sources */,
 				744919AE2BE53D6A00D6FF62 /* DashboardView.swift in Sources */,
