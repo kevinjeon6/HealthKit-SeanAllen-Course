@@ -20,11 +20,12 @@ import Observation
     
     var stepData: [HealthMetric] = []
     var weightData: [HealthMetric] = []
+    var weightDiffData: [HealthMetric] = []
     
     
     //Functions that try need to handle the error or be marked with "throws"
     // async throws means that it might throw an error and it might suspend its execution
-    func fetchStepCount () async {
+    func fetchStepCount() async {
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: .now)
         let endDate = calendar.date(byAdding: .day, value: 1, to: today)!
@@ -59,7 +60,7 @@ import Observation
         
     }
     
-    func fetchWeight () async {
+    func fetchWeight() async {
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: .now)
         let endDate = calendar.date(byAdding: .day, value: 1, to: today)!
@@ -94,6 +95,35 @@ import Observation
         
     }
     
+    func fetchWeightForDifferentials() async {
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: .now)
+        let endDate = calendar.date(byAdding: .day, value: 1, to: today)!
+        let startDate = calendar.date(byAdding: .day, value: -29, to: endDate)!
+        
+        let queryPredicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate)
+        
+        //Create the query descriptor
+        let samplePredicate = HKSamplePredicate.quantitySample(type: HKQuantityType(.bodyMass), predicate: queryPredicate)
+        
+        let weightQuery = HKStatisticsCollectionQueryDescriptor(
+            predicate: samplePredicate,
+            options: .mostRecent,
+            anchorDate: endDate,
+            intervalComponents: .init(day: 1))
+        
+        do {
+            let weights = try await weightQuery.result(for: healthStore)
+            
+            weightDiffData = weights.statistics().map {
+                HealthMetric(date: $0.startDate, value: $0.mostRecentQuantity()?.doubleValue(for: .pound()) ?? 0)
+            }
+        } catch {
+            fatalError("Error retrieving weight data")
+        }
+
+        
+    }
 
     
     
