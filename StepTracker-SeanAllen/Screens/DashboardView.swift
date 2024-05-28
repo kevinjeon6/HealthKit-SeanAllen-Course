@@ -55,15 +55,24 @@ struct DashboardView: View {
                     }
                     .pickerStyle(.segmented)
                     
-                    StepbBarChartView(selectedStat: selectedStat, chartData: hkManager.stepData)
-                    
-                    StepPieChartView(chartData: ChartMath.avgWeeklyCount(for: hkManager.stepData))
+                    switch selectedStat {
+                    case .steps:
+                        StepbBarChartView(selectedStat: selectedStat, chartData: hkManager.stepData)
+                        
+                        StepPieChartView(chartData: ChartMath.avgWeeklyCount(for: hkManager.stepData))
+                    case .weight:
+                        WeightLineChartView(selectedStat: selectedStat, chartData: hkManager.weightData)
+                        WeightDiffChartView(chartData: ChartMath.averageDailyweightDiffs(for: hkManager.weightDiffData))
+                    }
+                   
                 }
              
             }
             .padding()
             .task {
                 await hkManager.fetchStepCount()
+                await hkManager.fetchWeight()
+                await hkManager.fetchWeightForDifferentials()
                 isShowingHealthKitPermissionSheet = !hasSeenPermissionView
                 
             }

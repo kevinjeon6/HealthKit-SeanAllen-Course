@@ -1,44 +1,40 @@
 //
-//  StepbBarChartView.swift
+//  WeightLineChartView.swift
 //  StepTracker-SeanAllen
 //
-//  Created by Kevin Mattocks on 5/9/24.
+//  Created by Kevin Mattocks on 5/16/24.
 //
 
 import Charts
 import SwiftUI
 
-struct StepbBarChartView: View {
+struct WeightLineChartView: View {
     // MARK: - Properties
     @State private var rawSelectedDate: Date?
-    
     var selectedStat: HealthMetricContext
     var chartData: [HealthMetric]
     
-    var avgStepCount: Double {
-        guard !chartData.isEmpty else { return 0 }
-        
-        let totalSteps = chartData.reduce(0) {$0 + $1.value}
-        return totalSteps/Double(chartData.count)
-    }
-    
-    
     var selectedHealthMetric: HealthMetric? {
         guard let rawSelectedDate else { return nil }
-        return chartData.first { Calendar.current.isDate(rawSelectedDate, inSameDayAs: $0.date) }
+        return chartData.first {
+            Calendar.current.isDate(rawSelectedDate, inSameDayAs: $0.date)
+        }
     }
     
-    // MARK: - Body
+    var minWeightValue: Double {
+        chartData.map { $0.value }.min() ?? 0
+    }
+    
     var body: some View {
         VStack {
             NavigationLink(value: selectedStat) {
                 HStack {
                     VStack (alignment: .leading) {
-                        Label("Steps", systemImage: "figure.walk")
+                        Label("Weight", systemImage: "figure")
                             .font(.title3.bold())
-                            .foregroundColor(.mint)
+                            .foregroundColor(.indigo)
                         
-                        Text("Avg: \(Int(avgStepCount)) Steps")
+                        Text("Avg: weight")
                             .font(.caption)
                     }
                     
@@ -69,23 +65,31 @@ struct StepbBarChartView: View {
                             annotationView
                         }
                 }
-                
-                RuleMark(y: .value("Average", avgStepCount))
-                    .foregroundStyle(.secondary)
+                RuleMark(y: .value("Goal", 155))
+                    .foregroundStyle(.green)
                     .lineStyle(.init(lineWidth: 1, dash: [5]))
                 
-                ForEach(chartData) { steps in
-                    BarMark(
-                        x: .value( "Date", steps.date, unit: .day),
-                        y: .value("Steps", steps.value)
+                ForEach(chartData) { weight in
+                    AreaMark(
+                        x: .value("Day", weight.date, unit: .day),
+                        yStart: .value("Value", weight.value),
+                        yEnd: .value("Min Value", minWeightValue)
                     )
-                    .foregroundStyle(Color.mint.gradient)
-                    .opacity(rawSelectedDate == nil || steps.date == selectedHealthMetric?.date ? 1.0 : 0.3 )
-                    
+                    .foregroundStyle(Gradient(colors: [.indigo.opacity(0.5), .clear]))
+                    .interpolationMethod(.catmullRom)
+                                        
+                    LineMark(
+                        x: .value("Day",weight.date, unit: .day),
+                        y: .value("Value", weight.value)
+                    )
+                    .foregroundStyle(.indigo)
+                    .interpolationMethod(.catmullRom)
+                    .symbol(.circle)
                 }
             }
             .frame(height: 150)
-            .chartXSelection(value: $rawSelectedDate.animation(.easeInOut))
+            .chartXSelection(value: $rawSelectedDate)
+            .chartYScale(domain: .automatic(includesZero: false))
             .chartXAxis {
                 AxisMarks {
                     AxisValueLabel(format: .dateTime.month(.defaultDigits).day())
@@ -95,8 +99,7 @@ struct StepbBarChartView: View {
                 AxisMarks {value in
                     AxisGridLine()
                         .foregroundStyle(Color.secondary.opacity(0.3))
-                    
-                    AxisValueLabel((value.as(Double.self) ?? 0).formatted(.number.notation(.compactName)))
+                    AxisValueLabel()
                 }
             }
         }
@@ -104,16 +107,15 @@ struct StepbBarChartView: View {
         .background(RoundedRectangle(cornerRadius: 12).fill(Color(.secondarySystemBackground)))
     }
     
-    
     var annotationView: some View {
         VStack(alignment: .leading) {
             Text(selectedHealthMetric?.date ?? .now, format: .dateTime.weekday(.abbreviated).month(.abbreviated).day())
                 .font(.footnote.bold())
                 .foregroundStyle(.secondary)
             
-            Text(selectedHealthMetric?.value ?? 0, format: .number.precision(.fractionLength(0)))
+            Text(selectedHealthMetric?.value ?? 0, format: .number.precision(.fractionLength(1)))
                 .fontWeight(.heavy)
-                .foregroundStyle(.mint)
+                .foregroundStyle(.indigo)
         }
         .padding(12)
         .background(
@@ -122,9 +124,8 @@ struct StepbBarChartView: View {
                 .shadow(color: .secondary.opacity(0.3), radius: 2, x: 2, y: 2)
         )
     }
-    
 }
 
 #Preview {
-    StepbBarChartView(selectedStat: .steps, chartData: MockData.steps)
+    WeightLineChartView(selectedStat: .weight, chartData: MockData.weights)
 }
