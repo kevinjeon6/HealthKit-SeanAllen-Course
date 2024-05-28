@@ -23,6 +23,7 @@
 		7492BC952BED1F620095BE20 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 7492BC942BED1F620095BE20 /* Algorithms */; };
 		74C0A7742BE937370037FB36 /* HKPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0A7732BE937360037FB36 /* HKPermissionView.swift */; };
 		74C0A7772BE9468D0037FB36 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0A7762BE9468D0037FB36 /* HealthKitManager.swift */; };
+		74CFCDA02C0624F300BF1454 /* WeightDiffChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CFCD9F2C0624F300BF1454 /* WeightDiffChartView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		74C0A7732BE937360037FB36 /* HKPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKPermissionView.swift; sourceTree = "<group>"; };
 		74C0A7752BE945F70037FB36 /* StepTracker-SeanAllen.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "StepTracker-SeanAllen.entitlements"; sourceTree = "<group>"; };
 		74C0A7762BE9468D0037FB36 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
+		74CFCD9F2C0624F300BF1454 /* WeightDiffChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightDiffChartView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 				7492BC862BED0E060095BE20 /* StepbBarChartView.swift */,
 				74331FA42BF24F7300C7D628 /* StepPieChartView.swift */,
 				74247BCA2BF6BD19006F8C6E /* WeightLineChartView.swift */,
+				74CFCD9F2C0624F300BF1454 /* WeightDiffChartView.swift */,
 				7492BC8C2BED18070095BE20 /* ChartMath.swift */,
 				7492BC8E2BED184B0095BE20 /* ChartDataTypes.swift */,
 			);
@@ -238,6 +241,7 @@
 				74C0A7772BE9468D0037FB36 /* HealthKitManager.swift in Sources */,
 				744919AC2BE53D6A00D6FF62 /* StepTracker_SeanAllenApp.swift in Sources */,
 				7492BC8D2BED18070095BE20 /* ChartMath.swift in Sources */,
+				74CFCDA02C0624F300BF1454 /* WeightDiffChartView.swift in Sources */,
 				7492BC852BEBBD050095BE20 /* HealthMetric.swift in Sources */,
 				7492BC8F2BED184B0095BE20 /* ChartDataTypes.swift in Sources */,
 				7492BC922BED18C40095BE20 /* Date-Ext.swift in Sources */,
