@@ -9,6 +9,14 @@ import HealthKit
 import Foundation
 import Observation
 
+enum STError: Error {
+    case authNotDetermined
+    case sharingDenied(quantityType: String)
+    case noData
+    case unableToCompleteRequest
+    
+}
+
 @Observable class HealthKitManager {
     
     let healthStore = HKHealthStore()
@@ -25,7 +33,12 @@ import Observation
     
     //Functions that try need to handle the error or be marked with "throws"
     // async throws means that it might throw an error and it might suspend its execution
-    func fetchStepCount() async {
+    func fetchStepCount() async throws {
+        guard healthStore.authorizationStatus(for: HKQuantityType(.stepCount)) != .notDetermined else {
+            throw STError.authNotDetermined
+            }
+      
+        
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: .now)
         let endDate = calendar.date(byAdding: .day, value: 1, to: today)!
@@ -49,8 +62,10 @@ import Observation
                 HealthMetric(date: $0.startDate, value: $0.sumQuantity()?.doubleValue(for: .count()) ?? 0)
             }
 
+        } catch HKError.errorNoData{
+            throw STError.noData
         } catch {
-            fatalError("Error retrieving step data")
+            throw STError.unableToCompleteRequest
         }
         
         //Looping of the results of stepCount to make sure we have it by printing it out
@@ -60,7 +75,11 @@ import Observation
         
     }
     
-    func fetchWeight() async {
+    func fetchWeight() async throws {
+        guard healthStore.authorizationStatus(for: HKQuantityType(.bodyMass)) != .notDetermined else {
+            throw STError.authNotDetermined
+        }
+        
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: .now)
         let endDate = calendar.date(byAdding: .day, value: 1, to: today)!
@@ -83,8 +102,10 @@ import Observation
             weightData = weights.statistics().map {
                 HealthMetric(date: $0.startDate, value: $0.mostRecentQuantity()?.doubleValue(for: .pound()) ?? 0)
             }
+        } catch HKError.errorNoData {
+            throw STError.noData
         } catch {
-            fatalError("Error retrieving weight data")
+            throw STError.unableToCompleteRequest
         }
         
         
@@ -124,16 +145,54 @@ import Observation
     }
     
     
-    func addStepData(for date: Date, value: Double) async {
+    func addStepData(for date: Date, value: Double) async throws {
+        let status = healthStore.authorizationStatus(for: HKQuantityType(.stepCount))
+        
+        switch status {
+            
+        case .notDetermined:
+            throw STError.authNotDetermined
+        case .sharingDenied:
+            throw STError.sharingDenied(quantityType: "step count")
+        case .sharingAuthorized:
+            break
+        @unknown default:
+            break
+        }
+        
         let stepQuantity = HKQuantity(unit: .count(), doubleValue: value)
         let stepSample = HKQuantitySample(type: HKQuantityType(.stepCount), quantity: stepQuantity, start: date, end: date)
-        try! await healthStore.save(stepSample)
+        
+        do {
+            try await healthStore.save(stepSample)
+        } catch {
+            throw STError.unableToCompleteRequest
+        }
     }
     
-    func addWeightData(for date: Date, value: Double) async {
+    func addWeightData(for date: Date, value: Double) async throws {
+        
+        let status = healthStore.authorizationStatus(for: HKQuantityType(.bodyMass))
+        
+        switch status {
+            
+        case .notDetermined:
+            throw STError.authNotDetermined
+        case .sharingDenied:
+            throw STError.sharingDenied(quantityType: "body mass")
+        case .sharingAuthorized:
+            break
+        @unknown default:
+            break
+        }
         let weightQuantity = HKQuantity(unit: .pound(), doubleValue: value)
         let weightSample = HKQuantitySample(type: HKQuantityType(.bodyMass), quantity: weightQuantity, start: date, end: date)
-        try! await healthStore.save(weightSample)
+        
+        do {
+            try await healthStore.save(weightSample)
+        } catch {
+            throw STError.unableToCompleteRequest
+        }
     }
 
     
