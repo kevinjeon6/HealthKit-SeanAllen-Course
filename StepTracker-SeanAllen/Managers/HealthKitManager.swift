@@ -116,7 +116,10 @@ enum STError: Error {
         
     }
     
-    func fetchWeightForDifferentials() async {
+    func fetchWeightForDifferentials() async throws {
+        guard healthStore.authorizationStatus(for: HKQuantityType(.bodyMass)) != .notDetermined else {
+            throw STError.authNotDetermined
+        }
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: .now)
         let endDate = calendar.date(byAdding: .day, value: 1, to: today)!
@@ -139,8 +142,10 @@ enum STError: Error {
             weightDiffData = weights.statistics().map {
                 HealthMetric(date: $0.startDate, value: $0.mostRecentQuantity()?.doubleValue(for: .pound()) ?? 0)
             }
+        } catch HKError.errorNoData {
+            throw STError.noData
         } catch {
-            fatalError("Error retrieving weight data")
+            throw STError.unableToCompleteRequest
         }
     }
     

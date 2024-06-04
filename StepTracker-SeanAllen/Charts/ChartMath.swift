@@ -34,6 +34,7 @@ struct ChartMath {
     static func averageDailyweightDiffs(for weights: [HealthMetric]) -> [WeekdayChartData] {
         var diffValues: [(date: Date, value: Double)] = []
         
+        guard weights.count > 1 else { return [] }
         for i in 1..<weights.count {
             
             let date = weights[i].date

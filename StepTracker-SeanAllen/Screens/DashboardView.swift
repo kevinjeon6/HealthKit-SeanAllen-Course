@@ -31,7 +31,6 @@ struct DashboardView: View {
     
     // MARK: - Properties
     @Environment(HealthKitManager.self) private var hkManager
-    @AppStorage("hasSeenPermissionView") private var hasSeenPermissionView = false
     @State private var isShowingHealthKitPermissionSheet = false
     @State private var selectedStat: HealthMetricContext = .steps
     
@@ -70,10 +69,17 @@ struct DashboardView: View {
             }
             .padding()
             .task {
-                await hkManager.fetchStepCount()
-                await hkManager.fetchWeight()
-                await hkManager.fetchWeightForDifferentials()
-                isShowingHealthKitPermissionSheet = !hasSeenPermissionView
+                do {
+                    try await hkManager.fetchStepCount()
+                    try await hkManager.fetchWeight()
+                    try await hkManager.fetchWeightForDifferentials()
+                } catch STError.authNotDetermined {
+                    isShowingHealthKitPermissionSheet = true
+                } catch STError.noData {
+                    print("❌ No Data Error")
+                } catch {
+                    
+                }
                 
             }
             .navigationTitle("Dashboard")
@@ -83,7 +89,7 @@ struct DashboardView: View {
             .sheet(isPresented: $isShowingHealthKitPermissionSheet) {
                 // fetch health data
             } content: {
-                HKPermissionView(hasSeen: $hasSeenPermissionView)
+                HKPermissionView()
             }
         }
         .tint(isSteps ? .mint : .indigo)
