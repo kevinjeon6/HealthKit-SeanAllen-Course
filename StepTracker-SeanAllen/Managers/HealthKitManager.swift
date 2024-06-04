@@ -121,8 +121,19 @@ import Observation
         } catch {
             fatalError("Error retrieving weight data")
         }
-
-        
+    }
+    
+    
+    func addStepData(for date: Date, value: Double) async {
+        let stepQuantity = HKQuantity(unit: .count(), doubleValue: value)
+        let stepSample = HKQuantitySample(type: HKQuantityType(.stepCount), quantity: stepQuantity, start: date, end: date)
+        try! await healthStore.save(stepSample)
+    }
+    
+    func addWeightData(for date: Date, value: Double) async {
+        let weightQuantity = HKQuantity(unit: .pound(), doubleValue: value)
+        let weightSample = HKQuantitySample(type: HKQuantityType(.bodyMass), quantity: weightQuantity, start: date, end: date)
+        try! await healthStore.save(weightSample)
     }
 
     
